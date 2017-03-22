@@ -19,7 +19,8 @@ var app = express();
 var url = 'mongodb://root:1234@ds135690.mlab.com:35690/esntest';
 
 //using server not app to listening port 5000
-var server = request.agent("https://quiet-peak-31270.herokuapp.com");
+//var server = request.agent("https://quiet-peak-31270.herokuapp.com");
+var server = request.agent("http://localhost:5000");
 
 suite('Post Announcement Tests', function(){
     this.timeout(4000);
@@ -43,8 +44,9 @@ suite('Post Announcement Tests', function(){
 
     //after all tests, close mongodb
     suiteTeardown('Close DB for Test', function(done){
-        testDB.collection("MESSAGES").drop();
-        testDB.collection("announcement").drop();
+        //testDB.collection("MESSAGES").drop();
+        //testDB.collection("announcement").drop();
+        //testDB.collection("USERS").drop();
         testDB.close();
         done();
     });

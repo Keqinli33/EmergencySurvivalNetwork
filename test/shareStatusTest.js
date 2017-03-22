@@ -14,6 +14,7 @@ var express = require('express');
 
 //var ShareStatusCtrl = require('../controller/ShareStatusCtrl');
 var dboper = require("../models/ShareStatusDBoper");
+var createoper = require("../models/User.js");
 
 var app = express();
 
@@ -21,7 +22,8 @@ var app = express();
 var url = 'mongodb://root:1234@ds135690.mlab.com:35690/esntest';
 
 //using server not app to listening port 5000
-var server = request.agent("https://quiet-peak-31270.herokuapp.com");
+//var server = request.agent("https://quiet-peak-31270.herokuapp.com");
+var server = request.agent("http://localhost:5000");
 
 suite('Share Status Tests', function(){
     this.timeout(4000);
@@ -44,9 +46,10 @@ suite('Share Status Tests', function(){
 
     //after all tests, close mongodb
     suiteTeardown('Close DB for Test', function(done){
-        testDB.collection("MESSAGES").drop();
-        testDB.collection("announcement").drop();
-        //testDB.announcement.drop();
+        //testDB.collection("MESSAGES").drop();
+        //testDB.collection("announcement").drop();
+        //testDB.collection("USERS").drop();
+
         testDB.close();
         done();
     });
@@ -75,7 +78,7 @@ suite('Share Status Tests', function(){
             .expect(200, function(err, res){
                 if(err) return done(err);
                 else {
-                   // console.log("here" + res.body.suc_msg);
+                    // console.log("here" + res.body.suc_msg);
                     expect(res.body.suc_msg).to.equal("Success");
 
                     done();
@@ -84,18 +87,24 @@ suite('Share Status Tests', function(){
             });
 
     });
+
     //to test the share status if it is consistent
     test('Share Status Function Test', function(done){
-        //should have a
-        dboper.Updatesharestatus("keqin","OK", function(err, results) {
-            expect(err).to.equal(null);
-            dboper.Getsharestatus("keqin",function(err, results1){
-                expect(results1["emergencystatus"]).to.equal("OK");
-                done();
+        //we need creat a user at least
+        var name = Date.now();
+        let new_user = new createoper(name,"1234", "online");
+        new_user.createUser(testDB, function(results0, err0){
+            expect(err0).to.equal(null);
+            dboper.Updatesharestatus(name,"OK", function(err, results) {
+                expect(err).to.equal(null);
+                dboper.Getsharestatus(name,function(err, results1){
+                    console.log("===========" + results1["emergencystatus"]);
+                    expect(results1["emergencystatus"]).to.equal("OK");
+                    testDB.collection("USERS").drop();
+                    done();
+                });
             });
         });
-
-        //done();
 
     });
 })
