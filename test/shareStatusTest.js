@@ -68,7 +68,7 @@ suite('Share Status Tests', function(){
     test('Changing Share Status Through RESTful Api', function(done){
         //request(app).get('/announcement').expect("Content-type",/json/)
         server.post('/userstatus')
-            .send({"username": "mary", "emergencystatus": "OK"})
+            .send({"username": "keqin", "emergencystatus": "OK"})
             .expect(200, function(err, res){
                 if(err) return done(err);
                 else {

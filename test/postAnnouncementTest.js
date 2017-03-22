@@ -52,13 +52,13 @@ suite('Post Announcement Tests', function(){
             .expect(200, function(err, res){
             if(err) return done(err);
             else {
-                for(var i=0; i<res.body.data.length; i++){
-                    console.log(res.body.data[i]["announcement"]);
-                }
+                // for(var i=0; i<res.body.data.length; i++){
+                //     console.log(res.body.data[i]["announcement"]);
+                // }
 
                 done();
             }
-
+                //done();
         });
 
     });
