@@ -22,7 +22,7 @@ var url = 'mongodb://root:1234@ds135690.mlab.com:35690/esntest';
 var server = request.agent("https://quiet-peak-31270.herokuapp.com");
 
 suite('Post Announcement Tests', function(){
-
+    this.timeout(4000);
     var testDB = {};
 
     //before all tests, init mongodb
@@ -43,6 +43,8 @@ suite('Post Announcement Tests', function(){
 
     //after all tests, close mongodb
     suiteTeardown('Close DB for Test', function(done){
+        testDB.collection("MESSAGES").drop();
+        testDB.collection("announcement").drop();
         testDB.close();
         done();
     });

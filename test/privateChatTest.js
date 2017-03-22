@@ -24,6 +24,7 @@ var url = 'mongodb://root:1234@ds135690.mlab.com:35690/esntest';
 var server = request.agent("https://quiet-peak-31270.herokuapp.com");
 
 suite('Private Chat Test', function(){
+    this.timeout(4000);
 
     var testDB = {};
     //before all tests, init mongodb
@@ -44,6 +45,8 @@ suite('Private Chat Test', function(){
 
     //after all tests, close mongodb
     suiteTeardown('Close DB for Test', function(done){
+        testDB.collection("MESSAGES").drop();
+        testDB.collection("announcement").drop();
         testDB.close();
         done();
     });
@@ -91,23 +94,35 @@ suite('Private Chat Test', function(){
     //to test message number of a particular receiver
     test('test message number of a particular receiver', function(done){
         let dboper = new PrivateChatDBOper("keqin", "test1000lkq");
-        dboper.GetCount_IndividualPrivateSender(function(statuscode1, results1){
-            var fake = {
-                "sender": "keqin",
-                "receiver": "test1000lkq",
-                "PrivateMsg": "private chat function",
-                "emergency_status": "OK",
-                "timestamp": ""
-            }
-            dboper.InsertMessage(fake, function(statuscode2, content2) {
-                expect(statuscode2).to.equal(200);
-                dboper.GetCount_IndividualPrivateSender(function(statuscode3, results3){
-                    for(var i=0; i<results3.length; i++){
-                        if(results3[i]["sender"] === "keqin"){
-                            expect(results3[i]["count"]).to.equal(results1[i]["count"]+1);
+        var fake0 = {
+            "sender": "keqin",
+            "receiver": "test1000lkq",
+            "PrivateMsg": "private chat function",
+            "emergency_status": "OK",
+            "timestamp": ""
+        }
+        dboper.InsertMessage(fake0, function(statuscode0, content0) {
+            expect(statuscode0).to.equal(200);
+            dboper.GetCount_IndividualPrivateSender(function (statuscode1, results1) {
+                expect(statuscode1).to.equal(200);
+                var fake = {
+                    "sender": "keqin",
+                    "receiver": "test1000lkq",
+                    "PrivateMsg": "private chat function",
+                    "emergency_status": "OK",
+                    "timestamp": ""
+                };
+                dboper.InsertMessage(fake, function (statuscode2, content2) {
+                    expect(statuscode2).to.equal(200);
+                    dboper.GetCount_IndividualPrivateSender(function (statuscode3, results3) {
+                        expect(statuscode3).to.equal(200);
+                        for (var i = 0; i < results3.length; i++) {
+                            if (results3[i]["sender"] === "keqin") {
+                                expect(results3[i]["count"]).to.equal(results1[i]["count"] + 1);
+                            }
                         }
-                    }
-                    done();
+                        done();
+                    });
                 });
             });
         });
