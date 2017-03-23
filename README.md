@@ -23,5 +23,6 @@ Git/GitHub
 
 Trello
 
-StarUMl
+StarUML
 
+Heroku
