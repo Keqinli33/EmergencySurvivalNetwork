@@ -26,7 +26,7 @@ var server = request.agent("https://quiet-peak-31270.herokuapp.com");
 // var server = request.agent("http://localhost:5000");
 
 suite('Share Status Tests', function(){
-    this.timeout(4000);
+    this.timeout(15000);
     var testDB = {};
     //before all tests, init mongodb
     suiteSetup('Init A DB for Test', function(done){
