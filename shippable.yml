@@ -11,7 +11,7 @@ services:
 # Declare global variables to be used during your build.
 env:
   global:
-    - APP_NAME=quiet-peak-31270
+    - APP_NAME=esnsv7keqin
     - IS_SHIPPABLE=true
     - HEROKU_API_KEY=59ac4c33-d4a6-4ff6-813d-5c1fdb8ae514
 
