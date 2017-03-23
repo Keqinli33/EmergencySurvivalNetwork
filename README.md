@@ -23,4 +23,5 @@ Git/GitHub
 
 Trello
 
-StarUML
+StarUMl
+
