@@ -6,8 +6,10 @@
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var express = require('express');
+var DBConfig = require('./DBConfig');
+let dbconfig = new DBConfig();
+var url = dbconfig.getURL();
 //var url = 'mongodb://root:1234@ds137730.mlab.com:37730/esnsv7';
-var url = 'mongodb://root:1234@ds135690.mlab.com:35690/esntest';
 
 var db_err_msg = "Database Error";
 
@@ -47,7 +49,7 @@ exports.LoadAnnouncement = function(callback) {
                     data["username"] = result.username;
                     data["announcement"] = result.announcement;
                     data["timestamp"] = result.postTime;
-                    console.log(result);
+                    //console.log(result);
                     datas.push(data);
                 });
                 //var jsonString = JSON.stringify(datas);
