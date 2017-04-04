@@ -21,14 +21,27 @@ module.exports = function(grunt){
         mocha_istanbul: {
             coverage: {
                 src: 'test', // a folder works nicely
+                options: {
+                    mochaOptions: ['--ui', 'tdd'] // any extra options for mocha
+                }
             }
         }
 
     });
 
+
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-mocha-istanbul');
-    grunt.registerTask('coverage', ['mocha_istanbul']);
+
+    // Default task(s).
+    grunt.registerTask('default', []);
+
     grunt.registerTask('test', ['mochaTest:local']);
+
+    // Shippable
+    grunt.registerTask('shippable', ['mochaTest:shippable', 'mocha_istanbul']);
+
+    grunt.registerTask('coverage', ['mocha_istanbul']);
+
 
 };

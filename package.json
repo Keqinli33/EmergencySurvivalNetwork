@@ -26,6 +26,7 @@
   "devDependencies": {
     "eslint": "^3.19.0",
     "grunt": "^1.0.1",
+    "grunt-mocha-istanbul": "^5.0.2",
     "grunt-mocha-test": "^0.13.2",
     "supertest": "^3.0.0"
   }
