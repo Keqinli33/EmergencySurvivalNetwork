@@ -87,23 +87,23 @@ app.use(function(err, req, res, next) {
 // var server;
 
 
-exports.start = function(cb) {
-    server = app.listen(process.env.PORT || 5000, function() {
-        io = sockets(server);
-        if (cb) {
-            cb();
-        }
-    });
-};
-
-exports.close = function(cb) {
-    if (io) io.close();
-    if (server) server.close(cb);
-};
-// when app.js is launched directly
-if (module.id === require.main.id) {
-    exports.start();
-}
+// exports.start = function(cb) {
+//     server = app.listen(process.env.PORT || 5000, function() {
+//         io = sockets(server);
+//         if (cb) {
+//             cb();
+//         }
+//     });
+// };
+//
+// exports.close = function(cb) {
+//     if (io) io.close();
+//     if (server) server.close(cb);
+// };
+// // when app.js is launched directly
+// if (module.id === require.main.id) {
+//     exports.start();
+// }
 module.exports = app;
 //
 // var ConnectedSockets = {};
