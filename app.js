@@ -66,6 +66,8 @@ app.post("/privatechat", PrivateChatCtrl.AddPrivateMessage);
 app.get("/privatechat/:receiver", PrivateChatCtrl.getCount_IndividualPrivateSender);
 app.post("/privatechat/search/:user", PrivateChatCtrl.search);
 
+app.post("/incident/:user", PostIncidentCtrl.PostIncident);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
