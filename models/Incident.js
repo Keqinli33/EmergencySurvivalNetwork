@@ -48,17 +48,17 @@ class Incident{
         this.collection = db.collection("INCIDENTS");
         this.collection.find({"username": this.username}).toArray(function (err, results) {
             var datas1 = [];
-            var datas2 = [];
+            //var datas2 = [];
             results.forEach(function(result){
                 var data1 = {};
-                var data2 = {};
+                //var data2 = {};
                 //data["username"] = result.username;
-                data1["content"] = data1.content;
-                data2["postTime"] = data2.postTime;
+                data1["content"] = result.content;
+                data1["postTime"] = result.postTime;
                 datas1.push(data1);
-                datas2.push(data2);
+                //datas2.push(data2);
             });
-            callback(datas1, datas2, null);
+            callback(datas1, null);
         });
     }
 

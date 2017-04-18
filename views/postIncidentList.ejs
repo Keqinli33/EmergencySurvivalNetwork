@@ -1,0 +1,27 @@
+<div class="container" ng-controller="privateChatListCtrl" ng-show="showList.postIncidentList">
+    <div class="container">
+        <h3> Update My Incidents </h3>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            contents
+        </th>
+        <th>
+            time
+        </th>
+        <th>Update</th>
+    </tr>
+    </thead>
+    <tr ng-repeat="content in contents">
+        <td>
+             {{content.content}}
+        </td>
+        <td>
+            {{ content.postTime}}
+        </td>
+        <td><button ng-click="openUpdate(content.postTime)">Update</button></td>
+    </tr>
+</table>
+    </div>
+</div>

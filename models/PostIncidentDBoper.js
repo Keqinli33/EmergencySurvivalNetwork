@@ -51,9 +51,9 @@ class PostIncidentDBoper{
             }// DB Error. Here error of connecting to db
             else {
                 let IncidentInstance = new Incident(username, "", "", "", "", "", "", "", "");
-                IncidentInstance.loadAllIncidents(db, function(content1, content2, err){
+                IncidentInstance.loadAllIncidents(db, function(content1, err){
                     console.log(err);
-                    callback(success_statuscode, content1, content2);
+                    callback(success_statuscode, content1);
                     db.close();
                 });
             }

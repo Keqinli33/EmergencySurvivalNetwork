@@ -10,8 +10,13 @@ app.controller("postIncidentListCtrl", function($window, $scope, $rootScope, $ht
                 method:"get",
                 url:"/incident/list/" +$scope.userClass["username"]
             }).success(function(rep) {
-                $scope.contents = res.data2;
-                $scope.postTimes = res.data2;
+                // var res = [];
+                // for(var i=0; i<rep.data1.length; i++){
+                //     var temp = rep.data1[i] + " @ " + rep.data2[i];
+                //     res.
+                // }
+                $scope.contents = rep.data1;
+                //$scope.postTimes = rep.data2;
                 console.log(res);
             });
     };
@@ -19,7 +24,7 @@ app.controller("postIncidentListCtrl", function($window, $scope, $rootScope, $ht
     // in directory, open private chat
     $scope.openUpdate = function (postTime) {
         $scope.userClass["postTime"] = postTime;
-        $rootScope.$emit("openPrivateChat");
+        $rootScope.$emit("openIncidentContent");
         // $http({
         //     method:"get",
         //     url:"/incident/content/" + $scope.userClass["username"] + "/" + postTime

@@ -35,10 +35,10 @@ class PostIncidentCtrl{
     LoadAllIncidents(req, res){
         var username = req.params.user;
         //var info = req.body;
-        dboper.LoadIncident(username, url, function(status, content1, content2){
+        dboper.LoadIncident(username, url, function(status, content1){
             if (status == 200) {
                 // console.log("Error:"+ err);
-                res.json({success: 1, "data1":sorted_content1, "data2":content2});
+                res.json({success: 1, "data1":content1});
             } else {
                 res.json({success:0, err_type: 1, err_msg:"Load Incidents Wrong"});
             }

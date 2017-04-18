@@ -38,8 +38,22 @@ app.controller("postIncidentContentCtrl", function ($window, $scope, $rootScope,
             method:"get",
             url:"/incident/content/" + $scope.userClass["username"] + "/" + $scope.userClass["postTime"]
         }).success(function(rep){
-            
+            var info = rep.data;
+            //content should have these fields
+                //$scope.userClass["username"]=
+                $scope.isSafe = info[0]["isSafe"];
+                $scope.isInjured = info[0]["isInjured"];
+                $scope.severity = info[0]["severity"];
+                $scope.emergencyType = info[0]["emergencyType"];
+                $scope.content = info[0]["content"];
+                $scope.address = info[0]["address"];
+                $scope.phonenumber = info[0]["phonenumber"];
         });
     }
+
+    $rootScope.$on("openIncidentContent", function() {
+        //$scope.privateChatSender = $scope.userClass["privateChatSender"];
+        getIncidentContent();
+    });
 
 }
