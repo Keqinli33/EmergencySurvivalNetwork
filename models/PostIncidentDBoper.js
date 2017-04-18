@@ -43,7 +43,7 @@ class PostIncidentDBoper{
         load all incidents
         return content, postTime
      */
-    LoadIncident(username, callback){
+    LoadIncident(username, url, callback){
 
         MongoClient.connect(url, function (err, db){
             if (err) {
@@ -51,7 +51,25 @@ class PostIncidentDBoper{
             }// DB Error. Here error of connecting to db
             else {
                 let IncidentInstance = new Incident(username, "", "", "", "", "", "", "", "");
-                IncidentInstance.loadAllIncidents(db, function(results, err){
+                IncidentInstance.loadAllIncidents(db, function(content1, content2, err){
+                    console.log(err);
+                    callback(success_statuscode, content1, content2);
+                    db.close();
+                });
+            }
+        });
+    }
+    /*
+        load an incident content
+     */
+    LoadIncidentContent(username, postTime, url, callback){
+        MongoClient.connect(url, function (err, db){
+            if (err) {
+                callback(db_err_statuscode, db_err_msg);
+            }// DB Error. Here error of connecting to db
+            else {
+                let IncidentInstance = new Incident(username, "", "", "", "", "postTime", "", "", "");
+                IncidentInstance.loadIncidentContent(db, function(results, err){
                     console.log(err);
                     callback(success_statuscode, results);
                     db.close();
@@ -91,3 +109,12 @@ class PostIncidentDBoper{
     }
 
 }
+
+let pidboper = new PostIncidentDBoper();
+
+module.exports = {
+    InsertIncident : pidboper.InsertIncident,
+    LoadIncident : pidboper.LoadIncident,
+    LoadIncidentContent: pidboper.LoadIncidentContent,
+    UpdateIncident : pidboper.UpdateIncident
+};

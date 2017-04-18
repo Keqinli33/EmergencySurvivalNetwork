@@ -22,12 +22,12 @@ class PostIncidentCtrl{
         // var isInjured = info["injure"];
         // var severity = info["severity"];
         // var emergencyType = info["emergencyType"];
-        dboper.InsertIncident(username, info, Date.now(), url, function(err, results){
-            if (err) {
+        dboper.InsertIncident(username, info, Date.now(), url, function(status, results){
+            if (status == 200) {
                 // console.log("Error:"+ err);
-                res.json({success:0, err_type: 1, err_msg:results});
-            } else {
                 res.json({success: 1, suc_msg: "Success"});
+            } else {
+                res.json({success:0, err_type: 1, err_msg:results});
             }
         });
     }
@@ -35,28 +35,52 @@ class PostIncidentCtrl{
     LoadAllIncidents(req, res){
         var username = req.params.user;
         //var info = req.body;
-        dboper.LoadIncident(username, url, function(err, results){
-            if (err) {
+        dboper.LoadIncident(username, url, function(status, content1, content2){
+            if (status == 200) {
                 // console.log("Error:"+ err);
-                res.json({success:0, err_type: 1, err_msg:results});
+                res.json({success: 1, "data1":sorted_content1, "data2":content2});
             } else {
-                res.json({success: 1, suc_msg: "Success"});
+                res.json({success:0, err_type: 1, err_msg:"Load Incidents Wrong"});
             }
         });
 
     }
 
+    LoadIncidentContent(req, res){
+        var username = req.params.user;
+        var postTime = req.params.postTime;
+
+        dboper.LoadIncidentContent(username, postTime, url, function(status, results){
+            if (status == 200) {
+                // console.log("Error:"+ err);
+                res.json({success: 1, data:results});
+            } else {
+                res.json({success:0, err_type: 1, err_msg:"Load Incidents Wrong"});
+            }
+        });
+    }
+
+
     UpdateIncident(req, res){
         var username = req.params.user;
         var info = req.body;
-        dboper.UpdateIncident(username, info, Date.now(), url, function(err, results){
-            if (err) {
+        dboper.UpdateIncident(username, info, Date.now(), url, function(status, results){
+            if (status == 200) {
                 // console.log("Error:"+ err);
-                res.json({success:0, err_type: 1, err_msg:results});
-            } else {
                 res.json({success: 1, suc_msg: "Success"});
+            } else {
+                res.json({success:0, err_type: 1, err_msg:results});
             }
         });
     }
 
 }
+
+let pic = new PostIncidentCtrl();
+
+module.exports = {
+    AddIncident : pic.AddIncident,
+    LoadAllIncidents : pic.LoadAllIncidents,
+    LoadIncidentContent: pic.LoadIncidentContent,
+    UpdateIncident : pic.UpdateIncident
+};

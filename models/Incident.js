@@ -47,15 +47,42 @@ class Incident{
     loadAllIncidents(db, callback){
         this.collection = db.collection("INCIDENTS");
         this.collection.find({"username": this.username}).toArray(function (err, results) {
-            var datas = [];
+            var datas1 = [];
+            var datas2 = [];
             results.forEach(function(result){
-                var data = {};
-                data["username"] = result.username;
-                data["content"] = result.content;
-                data["postTime"] = result.postTime;
-                datas.push(data);
+                var data1 = {};
+                var data2 = {};
+                //data["username"] = result.username;
+                data1["content"] = data1.content;
+                data2["postTime"] = data2.postTime;
+                datas1.push(data1);
+                datas2.push(data2);
             });
-            callback(datas, null);
+            callback(datas1, datas2, null);
+        });
+    }
+
+    /*
+        load an incident content
+     */
+    loadIncidentContent(db, callback){
+        this.collection = db.collection("INCIDENTS");
+        this.collection.find({"username": this.username, "postTime": this.postTime}).toArray(function (err, results) {
+            var datas1 = [];
+            results.forEach(function(result){
+                var data1 = {};
+                data1["username"] = result.username;
+                data1["isSafe"] = result.isSafe;
+                data1["isInjured"] = result.isInjured;
+                data1["severity"] = result.severity;
+                data1["emergencyType"] = result.emergencyType;
+                data1["postTime"] = result.postTime;
+                data1["content"] = result.content;
+                data1["address"] = result.address;
+                data1["phonenumber"] = result.phonenumber;
+                datas1.push(data1);
+            });
+            callback(datas1, null);
         });
     }
 
@@ -71,3 +98,5 @@ class Incident{
         });
     }
 }
+
+module.exports = Incident;

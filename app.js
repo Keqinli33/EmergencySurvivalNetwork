@@ -21,6 +21,7 @@ var PublicChatCtrl = require("./controller/PublicChatCtrl.js");
 var PrivateChatCtrl = require("./controller/PrivateChatCtrl.js");
 var PostAnnouncementCtrl = require("./controller/PostAnnouncementCtrl.js");
 var ShareStatusCtrl = require("./controller/ShareStatusCtrl");
+var PostIncidentCtrl = require("./controller/PostIncidentCtrl.js");
 // var sockets = require("./socket.js");
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -66,7 +67,9 @@ app.post("/privatechat", PrivateChatCtrl.AddPrivateMessage);
 app.get("/privatechat/:receiver", PrivateChatCtrl.getCount_IndividualPrivateSender);
 app.post("/privatechat/search/:user", PrivateChatCtrl.search);
 
-app.post("/incident/:user", PostIncidentCtrl.PostIncident);
+app.post("/incident/:user", PostIncidentCtrl.AddIncident);
+app.get("/incident/list/:user", PostIncidentCtrl.LoadAllIncidents);
+app.get("/incident/content/:user/:time", PostIncidentCtrl.LoadIncidentContent);
 
 
 // catch 404 and forward to error handler
