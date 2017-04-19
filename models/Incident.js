@@ -47,8 +47,10 @@ class Incident{
     loadAllIncidents(db, callback){
         this.collection = db.collection("INCIDENTS");
         console.log("mgdb  incident1");
-        this.collection.find({"username": this.username}).toArray(function (err, results) {
-            console.log("mgdb  incident2");
+        var username = this.username;
+        this.collection.find({"username": username}).toArray(function (err, results) {
+            console.log("mgdb  incident2========");
+            console.log(results);
             var datas1 = [];
             //var datas2 = [];
             results.forEach(function(result){
@@ -61,6 +63,30 @@ class Incident{
                 //datas2.push(data2);
             });
             console.log("mgdb  incident3");
+            callback(datas1, null);
+        });
+    }
+    /*
+        load all incidents list to all users
+     */
+    loadAllIncidentsall(db, callback){
+        this.collection = db.collection("INCIDENTS");
+        //console.log("mgdb  incident1");
+        this.collection.find({}).toArray(function (err, results) {
+            console.log("mgdb  incident2");
+            var datas1 = [];
+            //var datas2 = [];
+            results.forEach(function(result){
+                var data1 = {};
+                //var data2 = {};
+                data1["username"] = result.username;
+                data1["content"] = result.content;
+                data1["postTime"] = result.postTime;
+                data1["address"] =result.address;
+                datas1.push(data1);
+                //datas2.push(data2);
+            });
+            //console.log("mgdb  incident3");
             callback(datas1, null);
         });
     }

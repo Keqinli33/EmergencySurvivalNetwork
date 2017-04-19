@@ -16,7 +16,8 @@ app.controller("initCtrl", function($scope, $http) {
         announcementHistory: false,
         postIncidentList:false,
         postIncidentContent:false,
-        postIncidentUpdateContent:false
+        postIncidentUpdateContent:false,
+        postIncidentListAll:false
     };
     $scope.searchStatus = true;
     $scope.searchName =  false;

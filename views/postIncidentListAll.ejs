@@ -1,0 +1,33 @@
+<div class="container" ng-controller="postIncidentListAllCtrl" ng-show="showList.postIncidentListAll">
+    <div class="container">
+        <h3> Show All Incidents </h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>
+                    User
+                </th>
+                <th>
+                    Content
+                </th>
+                <th>Post Time</th>
+                <th>Address</th>
+            </tr>
+            </thead>
+            <tr ng-repeat="content in allcontents">
+                <td>
+                    {{content.username}}
+                </td>
+                <td>
+                    {{content.content}}
+                </td>
+                <td>
+                    {{ content.postTime | date: 'MM.dd.yyyy HH:mma'}}
+                </td>
+                <td>
+                    {{content.address}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -49,6 +49,22 @@ class PostIncidentCtrl{
 
     }
 
+    LoadAllIncidentsAll(req, res){
+        //var username = req.params.user;
+        console.log("Ctrl incident1");
+        //var info = req.body;
+        dboper.LoadIncidentAll(url, function(status, content1){
+            if (status == 200) {
+                // console.log("Error:"+ err);
+                console.log("Ctrl incident2");
+                res.json({success: 1, "data1":content1});
+            } else {
+                res.json({success:0, err_type: 1, err_msg:"Load Incidents Wrong"});
+            }
+        });
+
+    }
+
     LoadIncidentContent(req, res){
         var username = req.params.user;
         var postTime = req.params.time;
@@ -79,6 +95,13 @@ class PostIncidentCtrl{
         });
     }
 
+    IncidentSocket (socket) {
+        return function() {
+            socket.emit("Post Incident");
+            socket.broadcast.emit("Post Incident");
+        };
+    }
+
 }
 
 let pic = new PostIncidentCtrl();
@@ -87,5 +110,7 @@ module.exports = {
     AddIncident : pic.AddIncident,
     LoadAllIncidents : pic.LoadAllIncidents,
     LoadIncidentContent: pic.LoadIncidentContent,
-    UpdateIncident : pic.UpdateIncident
+    UpdateIncident : pic.UpdateIncident,
+    IncidentSocket: pic.IncidentSocket,
+    LoadAllIncidentsAll: pic.LoadAllIncidentsAll
 };

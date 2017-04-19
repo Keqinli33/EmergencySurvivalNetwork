@@ -64,6 +64,28 @@ class PostIncidentDBoper{
         });
     }
     /*
+        load all incidents to all users
+     */
+    LoadIncidentAll(url, callback){
+        MongoClient.connect(url, function (err, db){
+            if (err) {
+                //console.log("DBoper err incident1");
+                callback(db_err_statuscode, db_err_msg);
+            }// DB Error. Here error of connecting to db
+            else {
+                //console.log("DBoper  incident2");
+                let IncidentInstance = new Incident("", "", "", "", "", "", "", "", "");
+                IncidentInstance.loadAllIncidentsall(db, function(content1, err){
+                    //console.log("DBoper  incident3");
+                    //console.log(err);
+                    callback(success_statuscode, content1);
+                    db.close();
+                });
+            }
+        });
+    }
+
+    /*
         load an incident content
      */
     LoadIncidentContent(username, postTime, url, callback){
@@ -120,5 +142,6 @@ module.exports = {
     InsertIncident : pidboper.InsertIncident,
     LoadIncident : pidboper.LoadIncident,
     LoadIncidentContent: pidboper.LoadIncidentContent,
-    UpdateIncident : pidboper.UpdateIncident
+    UpdateIncident : pidboper.UpdateIncident,
+    LoadIncidentAll: pidboper.LoadIncidentAll
 };

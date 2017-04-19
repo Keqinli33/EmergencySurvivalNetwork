@@ -18,13 +18,25 @@ app.controller("postIncidentContentCtrl", function ($window, $scope, $rootScope,
                 phonenumber: $scope.phonenumber
             };
 
+            // var socketdata = {
+            //     username: $scope.userClass["username"],
+            //     content: $scope.content,
+            //     address: $scope.address
+            // };
+
             $http({
                 method: "post",
                 url: "/incident/" + $scope.userClass["username"],
                 data: incident_data
             }).success(function (rep) {
-                console.log("here == in post incident content2");
-                mySocket.emit("Post An Incident", incident_data);
+                $scope.isSafe = "";
+                $scope.isInjured = "";
+                $scope.severity = "";
+                $scope.emergencyType = "";
+                $scope.content = "";
+                $scope.address = "";
+                $scope.phonenumber = "";
+                mySocket.emit("Post Incident");
                 //$scope.announcement_content = "";
                 if (rep.success == 1) {
                     console.log("Post An Incident Success!");
@@ -49,15 +61,11 @@ app.controller("postIncidentContentCtrl", function ($window, $scope, $rootScope,
             address: $scope.address,
             phonenumber: $scope.phonenumber
         };
-        var test_data = {
-            safe: $scope.isSafe,
-            injure: $scope.isInjured,
-            severity: $scope.severity,
-            emergencyType: $scope.emergencyType,
-            content: $scope.content,
-            address: $scope.address,
-            phonenumber: $scope.phonenumber
-        };
+        // var socketdata = {
+        //     username: $scope.userClass["username"],
+        //     content: $scope.content,
+        //     address: $scope.address
+        // };
 
         if($scope.content !=null ) {
             $http({
@@ -65,8 +73,14 @@ app.controller("postIncidentContentCtrl", function ($window, $scope, $rootScope,
                 url: "/incident/" + $scope.userClass["username"],
                 data: incident_data
             }).success(function (rep) {
-                console.log("here == in post incident content2");
-                mySocket.emit("Post An Incident", incident_data);
+                $scope.isSafe = "";
+                $scope.isInjured = "";
+                $scope.severity = "";
+                $scope.emergencyType = "";
+                $scope.content = "";
+                $scope.address = "";
+                $scope.phonenumber = "";
+                mySocket.emit("Post Incident");
                 //$scope.announcement_content = "";
                 if (rep.success == 1) {
                     console.log("Post An Incident Success!");
@@ -95,13 +109,26 @@ app.controller("postIncidentContentCtrl", function ($window, $scope, $rootScope,
             address: $scope.address,
             phonenumber: $scope.phonenumber
         };
+        // var socketdata = {
+        //     username: $scope.userClass["username"],
+        //     content: $scope.content,
+        //     address: $scope.address
+        // };
+
         $http({
             method: "post",
             url: "/incident/content/" + $scope.userClass["username"] + "/" + $scope.userClass["postTime"],
             data: incident_data
         }).success(function (rep) {
+            $scope.isSafe = "";
+            $scope.isInjured = "";
+            $scope.severity = "";
+            $scope.emergencyType = "";
+            $scope.content = "";
+            $scope.address = "";
+            $scope.phonenumber = ""; //here todo
             console.log("here == in post incident content2");
-            mySocket.emit("Post An Incident", incident_data);
+            mySocket.emit("Post Incident");
             //$scope.announcement_content = "";
             if (rep.success == 1) {
                 console.log("Post An Incident Success!");
@@ -110,10 +137,11 @@ app.controller("postIncidentContentCtrl", function ($window, $scope, $rootScope,
                 console.log("Unexpected error in post incident");
             }
         });
-        $rootScope.$emit("openIncidentDirectory");
+        //$rootScope.$emit("openIncidentDirectory");
         $scope.showList["postIncidentContent"]=false;
         $scope.showList["postIncidentList"]=true;
         $scope.showList["postIncidentUpdateContent"]=false;
+        $rootScope.$emit("openIncidentDirectory");
     }
 
     var getIncidentContent = function(){
@@ -124,7 +152,7 @@ app.controller("postIncidentContentCtrl", function ($window, $scope, $rootScope,
             var info = rep.data;
             //content should have these fields
                 //$scope.userClass["username"]=
-            console.log(info["isSafe"]);
+            //console.log(info["isSafe"]);
             console.log(info);
             if(info.length !==0) {
                 //console.log(info[0]["isSafe"]);
@@ -147,11 +175,20 @@ app.controller("postIncidentContentCtrl", function ($window, $scope, $rootScope,
                 $scope.phonenumber = "";
             }
         });
+        // $scope.showList["postIncidentContent"]=false;
+        // $scope.showList["postIncidentList"]=true;
+        // $scope.showList["postIncidentUpdateContent"]=false;
+        //$rootScope.$emit("openIncidentDirectory");
     }
 
-    $rootScope.$on("openIncidentContent", function() {
+    $rootScope.$on("updateIncidentContent", function() {
         //$scope.privateChatSender = $scope.userClass["privateChatSender"];
         getIncidentContent();
     });
+
+    // $rootScope.$on("openIncidentContent", function() {
+    //     //$scope.privateChatSender = $scope.userClass["privateChatSender"];
+    //     getIncidentContent();
+    // });
 
 });

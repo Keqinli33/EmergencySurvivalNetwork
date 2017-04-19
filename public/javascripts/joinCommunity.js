@@ -263,7 +263,7 @@ app.controller("joinCommunityCtrl", function($window, $scope, $rootScope, $http,
 
     //
     $scope.showPostIncidentContent = function () {
-        $rootScope.$emit("openIncidentContent");
+        //$rootScope.$emit("openIncidentContent");
         for (var item in $scope.showList) {
             $scope.showList[item] = false;
         }
@@ -271,6 +271,17 @@ app.controller("joinCommunityCtrl", function($window, $scope, $rootScope, $http,
         //$scope.showList["privateChatTable"] =true;
     };
     //
+    //
+    $scope.showPostIncidentListAll = function () {
+        $rootScope.$emit("openIncidentAllDirectory");
+        for (var item in $scope.showList) {
+            $scope.showList[item] = false;
+        }
+        $scope.showList["postIncidentListAll"] = true;
+        //$scope.showList["privateChatTable"] =true;
+    };
+    //
+
 
     mySocket.on("userJoined",function(username){
         if ($scope.logined) {

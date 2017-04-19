@@ -71,6 +71,7 @@ app.post("/incident/:user", PostIncidentCtrl.AddIncident);
 app.get("/incident/list/:user", PostIncidentCtrl.LoadAllIncidents);
 app.get("/incident/content/:user/:time", PostIncidentCtrl.LoadIncidentContent);
 app.post("/incident/content/:user/:time", PostIncidentCtrl.UpdateIncident);
+app.get("/incident/alllist", PostIncidentCtrl.LoadAllIncidentsAll);
 
 
 // catch 404 and forward to error handler
@@ -124,6 +125,8 @@ io.on("connection", function(socket) {
 
     //when a private message is sent
     socket.on("Private Message", privateChat2.privateMessageSocket(socket, ConnectedSockets));
+
+    socket.on("Post Incident", PostIncidentCtrl.IncidentSocket(socket));
 
     //when total number of unread(private+public) message is needed
     //socket.on("GetCount AllUnreadMsg", privateChat.getCount_AllUnreadMsg(socket));
