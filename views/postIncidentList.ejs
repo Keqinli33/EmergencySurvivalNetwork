@@ -1,4 +1,4 @@
-<div class="container" ng-controller="privateChatListCtrl" ng-show="showList.postIncidentList">
+<div class="container" ng-controller="postIncidentListCtrl" ng-show="showList.postIncidentList">
     <div class="container">
         <h3> Update My Incidents </h3>
 <table class="table">
@@ -18,7 +18,7 @@
              {{content.content}}
         </td>
         <td>
-            {{ content.postTime}}
+            {{ content.postTime | date: 'MM.dd.yyyy HH:mma'}}
         </td>
         <td><button ng-click="openUpdate(content.postTime)">Update</button></td>
     </tr>

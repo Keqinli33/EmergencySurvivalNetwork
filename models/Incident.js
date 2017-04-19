@@ -46,7 +46,9 @@ class Incident{
      */
     loadAllIncidents(db, callback){
         this.collection = db.collection("INCIDENTS");
+        console.log("mgdb  incident1");
         this.collection.find({"username": this.username}).toArray(function (err, results) {
+            console.log("mgdb  incident2");
             var datas1 = [];
             //var datas2 = [];
             results.forEach(function(result){
@@ -58,6 +60,7 @@ class Incident{
                 datas1.push(data1);
                 //datas2.push(data2);
             });
+            console.log("mgdb  incident3");
             callback(datas1, null);
         });
     }
@@ -67,7 +70,10 @@ class Incident{
      */
     loadIncidentContent(db, callback){
         this.collection = db.collection("INCIDENTS");
-        this.collection.find({"username": this.username, "postTime": this.postTime}).toArray(function (err, results) {
+        var username=this.username;
+        var postTime=Number(this.postTime);
+        console.log("incident ======" + typeof postTime);
+        this.collection.find({"username": username, "postTime": postTime}).toArray(function (err, results) {
             var datas1 = [];
             results.forEach(function(result){
                 var data1 = {};
@@ -82,6 +88,7 @@ class Incident{
                 data1["phonenumber"] = result.phonenumber;
                 datas1.push(data1);
             });
+            console.log("datas1 " + datas1);
             callback(datas1, null);
         });
     }
@@ -89,9 +96,11 @@ class Incident{
     /*
         update an incident
      */
-    updateIncident(db, incidentTime, callback){
+    updateIncident(db, postTime, callback){
         this.collection = db.collection("INCIDENTS");
-        this.collection.update({"username": username, "postTime": incidentTime}, {$set: {"isSafe": this.isSafe, "isInjured":this.isInjured, "severity":this.severity, "emergencyType":this.emergencyType, "postTime": this.postTime, "content": this.content, "address":this.address, "phonenumber":this.phonenumber}}, function (err, results) {
+        var username = this.username;
+        postTime=Number(postTime);
+        this.collection.update({"username": username, "postTime": postTime}, {$set: {"isSafe": this.isSafe, "isInjured":this.isInjured, "severity":this.severity, "emergencyType":this.emergencyType, "postTime": this.postTime, "content": this.content, "address":this.address, "phonenumber":this.phonenumber}}, function (err, results) {
             console.log(err);
             callback(results, null);
            // db.close();

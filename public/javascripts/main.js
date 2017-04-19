@@ -13,7 +13,10 @@ app.controller("initCtrl", function($scope, $http) {
         privateChatSearchResult: false,
         privateChatTable: false,
         publicHistory: false,
-        announcementHistory: false
+        announcementHistory: false,
+        postIncidentList:false,
+        postIncidentContent:false,
+        postIncidentUpdateContent:false
     };
     $scope.searchStatus = true;
     $scope.searchName =  false;

@@ -70,6 +70,7 @@ app.post("/privatechat/search/:user", PrivateChatCtrl.search);
 app.post("/incident/:user", PostIncidentCtrl.AddIncident);
 app.get("/incident/list/:user", PostIncidentCtrl.LoadAllIncidents);
 app.get("/incident/content/:user/:time", PostIncidentCtrl.LoadIncidentContent);
+app.post("/incident/content/:user/:time", PostIncidentCtrl.UpdateIncident);
 
 
 // catch 404 and forward to error handler

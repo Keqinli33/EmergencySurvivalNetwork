@@ -250,6 +250,27 @@ app.controller("joinCommunityCtrl", function($window, $scope, $rootScope, $http,
         }
         $scope.showList["shareStatus"] = true;
     };
+    //
+    $scope.showPostIncidentList = function () {
+        $rootScope.$emit("openIncidentDirectory");
+        for (var item in $scope.showList) {
+            $scope.showList[item] = false;
+        }
+        $scope.showList["postIncidentList"] = true;
+        //$scope.showList["privateChatTable"] =true;
+    };
+    //
+
+    //
+    $scope.showPostIncidentContent = function () {
+        $rootScope.$emit("openIncidentContent");
+        for (var item in $scope.showList) {
+            $scope.showList[item] = false;
+        }
+        $scope.showList["postIncidentContent"] = true;
+        //$scope.showList["privateChatTable"] =true;
+    };
+    //
 
     mySocket.on("userJoined",function(username){
         if ($scope.logined) {

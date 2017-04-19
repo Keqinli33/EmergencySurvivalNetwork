@@ -8,6 +8,7 @@ var MongoClient = require("mongodb").MongoClient;
 var db_err_msg = "Database Error";
 var db_err_statuscode = 400;
 var success_statuscode = 200;
+var Incident = require("./Incident.js");
 //var url = "mongodb://root:1234@ds137730.mlab.com:37730/esnsv7";
 
 class PostIncidentDBoper{
@@ -47,11 +48,14 @@ class PostIncidentDBoper{
 
         MongoClient.connect(url, function (err, db){
             if (err) {
+                console.log("DBoper err incident1");
                 callback(db_err_statuscode, db_err_msg);
             }// DB Error. Here error of connecting to db
             else {
+                console.log("DBoper  incident2");
                 let IncidentInstance = new Incident(username, "", "", "", "", "", "", "", "");
                 IncidentInstance.loadAllIncidents(db, function(content1, err){
+                    console.log("DBoper  incident3");
                     console.log(err);
                     callback(success_statuscode, content1);
                     db.close();
@@ -68,7 +72,7 @@ class PostIncidentDBoper{
                 callback(db_err_statuscode, db_err_msg);
             }// DB Error. Here error of connecting to db
             else {
-                let IncidentInstance = new Incident(username, "", "", "", "", "postTime", "", "", "");
+                let IncidentInstance = new Incident(username, "", "", "", "", postTime, "", "", "");
                 IncidentInstance.loadIncidentContent(db, function(results, err){
                     console.log(err);
                     callback(success_statuscode, results);
@@ -82,7 +86,7 @@ class PostIncidentDBoper{
         Update an incident
         first load incident then update
      */
-    UpdateIncident(username, info, postTime, url, callback){
+    UpdateIncident(username, postTime, info, date,url, callback){
         MongoClient.connect(url, function (err, db){
             if (err) {
                 //console.log("Error:"+ err);
@@ -96,9 +100,9 @@ class PostIncidentDBoper{
                 var content = info["content"];
                 var address = info["address"];
                 var phonenumber = info["phonenumber"];
-                var incidentTime = info["incidentTime"];
-                let IncidentInstance = new Incident(username, isSafe, isInjured, severity, emergencyType, postTime, content, address, phonenumber);
-                IncidentInstance.updateIncident(db, incidentTime, function (results, err) {
+                //var incidentTime = info["incidentTime"];
+                let IncidentInstance = new Incident(username, isSafe, isInjured, severity, emergencyType, date, content, address, phonenumber);
+                IncidentInstance.updateIncident(db, postTime, function (results, err) {
                     console.log(err);
                     callback(success_statuscode, null);
                     db.close();
