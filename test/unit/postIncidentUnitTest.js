@@ -162,5 +162,63 @@ suite('Post Incidents Unit Tests', function(){
         });
     });
 
+    test('Testing Insert  Function with wrong url', function(done){
+        var fakeInfo = {
+            "username": "keqin",
+            "safe": "Yes",
+            "injure": "No",
+            "severity": "2",
+            "emergencyType": "public emergency",
+            "content": "There is fire",
+            "address": "12 afsdf",
+            "phonenumber": "1235331"
+        }
+        var date = Date.now();
+        dboper.InsertIncident("keqin", fakeInfo, date, error_url, function(status1, results1){
+            expect(status1).to.equal(400);
+            done();
+        });
+    });
+    test('Testing LoadIncidentContent  Function with wrong url', function(done){
+        var fakeInfo = {
+            "username": "keqin",
+            "safe": "Yes",
+            "injure": "No",
+            "severity": "2",
+            "emergencyType": "public emergency",
+            "content": "There is fire",
+            "address": "12 afsdf",
+            "phonenumber": "1235331"
+        }
+        var date = Date.now();
+        dboper.LoadIncidentContent("keqin", date, error_url, function (status1, results1) {
+            expect(status1).to.equal(400);
+            done();
+        });
+    });
+    test('Testing LoadIncidentAll  Function with wrong url', function(done){
+        dboper.LoadIncidentAll(error_url, function (status1, results1) {
+            expect(status1).to.equal(400);
+            done();
+        });
+    });
+    test('Testing UpdateIncident  Function with wrong url', function(done){
+        var fakeInfo = {
+            "username": "keqin",
+            "safe": "Yes",
+            "injure": "No",
+            "severity": "2",
+            "emergencyType": "public emergency",
+            "content": "There is fire",
+            "address": "12 afsdf",
+            "phonenumber": "1235331"
+        }
+        var date = Date.now();
+        var date2 = Date.now();
+        dboper.UpdateIncident("keqin", date, fakeInfo, date2, error_url, function (status1, results1) {
+            expect(status1).to.equal(400);
+            done();
+        });
+    });
 
 });
