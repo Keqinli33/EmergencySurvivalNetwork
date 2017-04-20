@@ -65,6 +65,8 @@ class PostIncidentCtrl{
 
     }
 
+    
+
     LoadIncidentContent(req, res){
         var username = req.params.user;
         var postTime = req.params.time;
