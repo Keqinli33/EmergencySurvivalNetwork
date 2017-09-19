@@ -141,7 +141,7 @@ suite('Share Status Tests', function(){
      pass: 'KomalaESN'
      }
      });
-        let new_user = new createoper("test123","1234", "online","OK");
+        let new_user = new createoper("test123","1234", "online","OK","","","","","","emergencyservicenetworkfse@gmail.com","emergencyservicenetworkfse@gmail.com");
         new_user.createUser(testDB, function(results0, err0) {
             dboper.GetEmailForUser("test123", url, transporter, function (err, results) {
                 console.log(results);
@@ -159,9 +159,9 @@ suite('Share Status Tests', function(){
      pass: 'KomalaESN'
      }
      });
-         let new_user = new createoper("test1234","1234", "online","OK");
+         let new_user = new createoper("test123","1234", "online","OK","","","","","","sample","emergencyservicenetworkfse@gmail.com");
          new_user.createUser(testDB, function(results0, err0) {
-             dboper.GetEmailForUser("test1234", url, transporter, function (err, results) {
+             dboper.GetEmailForUser("test123", url, transporter, function (err, results) {
                  console.log(results);
                  expect(err).to.equal(null);
                  done();
@@ -170,7 +170,7 @@ suite('Share Status Tests', function(){
      });
 
     test('Sending message to Emergency Contact', function(done){
-        let new_user = new createoper("test123","1234", "online","OK");
+        let new_user = new createoper("test123","1234", "online","OK","","","","","","sample","emergencyservicenetworkfse@gmail.com");
         new_user.createUser(testDB, function(results0, err0) {
             dboper.SendPrivateChat("test123", url, function (err, results) {
                 console.log(results);

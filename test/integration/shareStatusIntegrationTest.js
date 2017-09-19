@@ -32,6 +32,7 @@ var url = dbconfig.getURL();
 //var server = request.agent("https://quiet-peak-31270.herokuapp.com");
 // var server = request.agent("http://localhost:5000");
 
+
 suite('Share Status Tests', function(){
     this.timeout(15000);
     var testDB = {};
@@ -59,6 +60,20 @@ suite('Share Status Tests', function(){
 
         testDB.close();
         done();
+    });
+
+    test('Creating share status through restful api', function(done){
+        //request(app).get('/announcement').expect("Content-type",/json/)
+        request.post('/signup')
+            .send({"username": "keqin", "password": "1234"})
+            .expect(200, function(err, res){
+                if(err) return done(err);
+                else {
+                    expect(res.body.success).to.equal(1);
+                    done();
+                }
+            });
+
     });
 
     test('Getting Share Status Through RESTful Api', function(done){
